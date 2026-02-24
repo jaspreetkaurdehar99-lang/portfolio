@@ -38,7 +38,7 @@ body{
 
 /* ================= HERO ================= */
 .hero{
-  height:150vh; /* more scroll space */
+  height:150vh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -73,7 +73,7 @@ body{
   color:#c24a46;
 }
 
-/* SECOND SECTION */
+/* ================= SECOND SECTION ================= */
 .second-section{
   min-height:100vh;
   background:#1e1e1e;
@@ -81,7 +81,41 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:40px;
+  padding:100px 20px;
+}
+
+.second-content{
+  max-width:800px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(80px);
+  transition:1s ease;
+}
+
+.second-content.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.second-content h2{
+  font-size:50px;
+  margin-bottom:25px;
+}
+
+.second-content p{
+  font-size:20px;
+  line-height:1.7;
+  opacity:0.85;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .hero h1{
+    font-size:48px;
+  }
+  .second-content h2{
+    font-size:32px;
+  }
 }
 </style>
 </head>
@@ -91,6 +125,7 @@ body{
   <div class="logo">SACHIN KUMAR</div>
 </nav>
 
+<!-- HERO SECTION -->
 <section class="hero" id="hero">
   <h1>
     <span class="scroll-reveal" id="revealText">
@@ -100,21 +135,26 @@ body{
   </h1>
 </section>
 
-<section class="second-section">
-  <h1>Hi, I’m Sachin — a video editor and designer</h1><br>
-  <p>Creating impactful visual content for brands. My work is client-focused and driven by<br>marketing goals,
-    ensuring design delivers real business results.
-    I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics.<br>
-    Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools,<br>
-    I combine creativity with strategy to produce high-quality content.</p>
+<!-- SECOND SECTION -->
+<section class="second-section" id="second">
+  <div class="second-content" id="secondContent">
+    <h2>Hi, I’m Sachin — a video editor and designer</h2>
+    <p>
+      Creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results.
+      <br><br>
+      I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools, I combine creativity with strategy to produce high-quality content.
+    </p>
+  </div>
 </section>
 
 <script>
 const text = document.getElementById("revealText");
 const hero = document.getElementById("hero");
+const secondContent = document.getElementById("secondContent");
 
 window.addEventListener("scroll", () => {
 
+  /* HERO TEXT REVEAL */
   const rect = hero.getBoundingClientRect();
   const windowHeight = window.innerHeight;
 
@@ -124,6 +164,12 @@ window.addEventListener("scroll", () => {
   );
 
   text.style.setProperty("--reveal", progress * 100 + "%");
+
+  /* SECOND SECTION FADE IN */
+  const secondRect = secondContent.getBoundingClientRect();
+  if(secondRect.top < window.innerHeight * 0.85){
+    secondContent.classList.add("show");
+  }
 
 });
 </script>
