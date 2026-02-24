@@ -12,10 +12,14 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family: Arial, sans-serif;
   background:#e6dcc8;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 /* ================= NAVBAR ================= */
@@ -28,6 +32,7 @@ body{
   align-items:center;
   padding:30px 60px;
   z-index:1000;
+  transition:0.4s;
 }
 
 .logo{
@@ -56,6 +61,12 @@ body{
   text-align:center;
   position:relative;
   overflow:hidden;
+  transition:opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hero.fade-out{
+  opacity:0;
+  transform:translateY(-100px);
 }
 
 .hero h1{
@@ -81,29 +92,58 @@ body{
 }
 
 @keyframes carFly {
-
-  /* Start - Left Outside */
   0%{
     left:-600px;
   }
-
-  /* Stop in Center */
   40%{
     left:50%;
     transform:translate(-50%, -50%);
   }
-
-  /* Hold in Center */
   60%{
     left:50%;
     transform:translate(-50%, -50%);
   }
-
-  /* Exit Right */
   100%{
     left:110%;
     transform:translateY(-50%);
   }
+}
+
+/* ================= SECOND SECTION ================= */
+.second-section{
+  min-height:100vh;
+  background:#1e1e1e;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:100px 20px;
+  position:relative;
+  z-index:2;
+}
+
+.second-section .content{
+  max-width:800px;
+  opacity:0;
+  transform:translateY(100px);
+  transition:1s ease;
+}
+
+.second-section.show .content{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.second-section h2{
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+.second-section p{
+  font-size:20px;
+  line-height:1.6;
+  opacity:0.8;
 }
 
 /* Responsive */
@@ -113,6 +153,9 @@ body{
   }
   .flying-car{
     width:250px;
+  }
+  .second-section h2{
+    font-size:36px;
   }
 }
 </style>
@@ -129,16 +172,48 @@ body{
   </div>
 </nav>
 
-<section class="hero">
+<!-- HERO SECTION -->
+<section class="hero" id="hero">
   <h1>
     DESIGN WITH A
     <span>HUMAN TOUCH</span>
   </h1>
-
-  <!-- Replace this path with your car image -->
   <img src="./Assets-jk/me-in-car.png" class="flying-car" alt="Flying Car">
-
 </section>
+
+<!-- SECOND SECTION -->
+<section class="second-section" id="second">
+  <div class="content">
+    <h2>Crafting Digital Experiences</h2>
+    <p>
+      I design and build immersive, human-centered digital experiences.
+      Blending creativity with strategy to create work that feels alive,
+      intentional, and impactful.
+    </p>
+  </div>
+</section>
+
+<script>
+
+/* Fade hero when scrolling */
+const hero = document.getElementById("hero");
+const second = document.getElementById("second");
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  if(scrollY > window.innerHeight * 0.3){
+    hero.classList.add("fade-out");
+  } else {
+    hero.classList.remove("fade-out");
+  }
+
+  if(scrollY > window.innerHeight * 0.6){
+    second.classList.add("show");
+  }
+});
+
+</script>
 
 </body>
 </html>
