@@ -32,7 +32,6 @@ body{
   align-items:center;
   padding:30px 60px;
   z-index:1000;
-  transition:0.4s;
 }
 
 .logo{
@@ -76,9 +75,24 @@ body{
   z-index:2;
 }
 
-.hero h1 span{
+.hero h1 .animate-text{
+  color:#999;
+  opacity:0;
+  transform:translateY(40px);
+  animation:textReveal 1.2s ease forwards;
+}
+
+.hero h1 span:last-child{
   color:#c24a46;
   display:block;
+}
+
+@keyframes textReveal{
+  to{
+    color:#111;
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* ================= CAR ANIMATION ================= */
@@ -146,7 +160,7 @@ body{
   opacity:0.8;
 }
 
-/* Responsive */
+/* ================= RESPONSIVE ================= */
 @media(max-width:768px){
   .hero h1{
     font-size:48px;
@@ -175,9 +189,10 @@ body{
 <!-- HERO SECTION -->
 <section class="hero" id="hero">
   <h1>
-    DESIGN WITH A
+    <span class="animate-text">DESIGN WITH A</span>
     <span>HUMAN TOUCH</span>
   </h1>
+
   <img src="./Assets-jk/me-in-car.png" class="flying-car" alt="Flying Car">
 </section>
 
@@ -186,16 +201,14 @@ body{
   <div class="content">
     <h2>Hi, I’m Sachin — a video editor and designer</h2>
     <p>
-      creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results.
-        <br>
+      Creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results.
+      <br><br>
       I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools, I combine creativity with strategy to produce high-quality content.
-        <br>
+    </p>
   </div>
 </section>
 
 <script>
-
-/* Fade hero when scrolling */
 const hero = document.getElementById("hero");
 const second = document.getElementById("second");
 
@@ -212,7 +225,6 @@ window.addEventListener("scroll", () => {
     second.classList.add("show");
   }
 });
-
 </script>
 
 </body>
