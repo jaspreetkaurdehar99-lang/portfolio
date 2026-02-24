@@ -43,7 +43,6 @@ body{
   align-items:center;
   justify-content:center;
   text-align:center;
-  position:relative;
   padding-top:100px;
 }
 
@@ -53,7 +52,7 @@ body{
   line-height:1.1;
 }
 
-/* SCROLL REVEAL EFFECT */
+/* ================= SCROLL REVEAL TEXT ================= */
 .scroll-reveal{
   background: linear-gradient(
     to right,
@@ -75,9 +74,8 @@ body{
 
 /* ================= SECOND SECTION ================= */
 .second-section{
-  min-height:100vh;
+  min-height:150vh;
   background:#1e1e1e;
-  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -85,27 +83,29 @@ body{
 }
 
 .second-content{
-  max-width:800px;
+  max-width:900px;
   text-align:center;
-  opacity:0;
-  transform:translateY(80px);
-  transition:1s ease;
-}
-
-.second-content.show{
-  opacity:1;
-  transform:translateY(0);
 }
 
 .second-content h2{
   font-size:50px;
-  margin-bottom:25px;
+  margin-bottom:30px;
 }
 
 .second-content p{
-  font-size:20px;
-  line-height:1.7;
-  opacity:0.85;
+  font-size:22px;
+  line-height:1.8;
+}
+
+/* Make second section reveal text start grey */
+.second-section .scroll-reveal{
+  background: linear-gradient(
+    to right,
+    #ffffff 0%,
+    #ffffff var(--reveal, 0%),
+    #555 var(--reveal, 0%),
+    #555 100%
+  );
 }
 
 /* ================= RESPONSIVE ================= */
@@ -128,7 +128,7 @@ body{
 <!-- HERO SECTION -->
 <section class="hero" id="hero">
   <h1>
-    <span class="scroll-reveal" id="revealText">
+    <span class="scroll-reveal" id="heroReveal">
       DESIGN WITH A
     </span>
     <span class="red">HUMAN TOUCH</span>
@@ -137,39 +137,52 @@ body{
 
 <!-- SECOND SECTION -->
 <section class="second-section" id="second">
-  <div class="second-content" id="secondContent">
-    <h2>Hi, I’m Sachin — a video editor and designer</h2>
-    <p>
-      Creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results.
+  <div class="second-content">
+    <h2 class="scroll-reveal" id="secondRevealTitle">
+      Hi, I’m Sachin — a video editor and designer
+    </h2>
+
+    <p class="scroll-reveal" id="secondRevealText">
+      Creating impactful visual content for brands. My work is client-focused 
+      and driven by marketing goals, ensuring design delivers real business results.
       <br><br>
-      I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools, I combine creativity with strategy to produce high-quality content.
+      I specialize in talking head videos, brand films, podcasts, vlogs, ads, 
+      and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, 
+      Figma, Illustrator, and AI tools, I combine creativity with strategy 
+      to produce high-quality content.
     </p>
   </div>
 </section>
 
 <script>
-const text = document.getElementById("revealText");
-const hero = document.getElementById("hero");
-const secondContent = document.getElementById("secondContent");
+const heroText = document.getElementById("heroReveal");
+const heroSection = document.getElementById("hero");
+
+const secondTitle = document.getElementById("secondRevealTitle");
+const secondText = document.getElementById("secondRevealText");
+const secondSection = document.getElementById("second");
 
 window.addEventListener("scroll", () => {
 
-  /* HERO TEXT REVEAL */
-  const rect = hero.getBoundingClientRect();
   const windowHeight = window.innerHeight;
 
-  const progress = Math.min(
-    Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0),
+  /* HERO REVEAL */
+  const heroRect = heroSection.getBoundingClientRect();
+  const heroProgress = Math.min(
+    Math.max((windowHeight - heroRect.top) / (windowHeight + heroRect.height), 0),
+    1
+  );
+  heroText.style.setProperty("--reveal", heroProgress * 100 + "%");
+
+  /* SECOND SECTION TITLE REVEAL */
+  const secondRect = secondSection.getBoundingClientRect();
+  const secondProgress = Math.min(
+    Math.max((windowHeight - secondRect.top) / (windowHeight + secondRect.height), 0),
     1
   );
 
-  text.style.setProperty("--reveal", progress * 100 + "%");
-
-  /* SECOND SECTION FADE IN */
-  const secondRect = secondContent.getBoundingClientRect();
-  if(secondRect.top < window.innerHeight * 0.85){
-    secondContent.classList.add("show");
-  }
+  secondTitle.style.setProperty("--reveal", secondProgress * 100 + "%");
+  secondText.style.setProperty("--reveal", secondProgress * 100 + "%");
 
 });
 </script>
