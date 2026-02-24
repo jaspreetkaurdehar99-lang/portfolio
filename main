@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Section</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: 'Arial', sans-serif;
+  background:#e6dcc8;
+  overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:30px 60px;
+  z-index:1000;
+}
+
+.logo{
+  font-weight:900;
+  font-size:28px;
+  letter-spacing:2px;
+}
+
+.nav-links{
+  display:flex;
+  gap:40px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#222;
+  font-size:18px;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  opacity:0.6;
+}
+
+/* ================= HERO ================= */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+/* CENTER TEXT */
+.hero h1{
+  font-size:90px;
+  font-weight:900;
+  line-height:1.1;
+  z-index:2;
+}
+
+.hero h1 span{
+  color:#c24a46;
+  display:block;
+}
+
+/* ================= CAR ANIMATION ================= */
+.flying-car{
+  position:absolute;
+  width:500px;
+  top:-200px;
+  left:-300px;
+  animation:flyCar 6s ease-in-out forwards;
+  transform:rotate(-15deg);
+  z-index:1;
+}
+
+@keyframes flyCar{
+  0%{
+    top:-250px;
+    left:-350px;
+    transform:rotate(-20deg) scale(0.8);
+  }
+  50%{
+    transform:rotate(-5deg) scale(1);
+  }
+  100%{
+    top:60%;
+    left:70%;
+    transform:rotate(10deg) scale(1);
+  }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{
+    font-size:48px;
+  }
+  .flying-car{
+    width:280px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">SHANE SAYERS</div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Work</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <h1>
+    DESIGN WITH A
+    <span>HUMAN TOUCH</span>
+  </h1>
+
+  <!-- Replace with your car image path -->
+  <img src="me-in-car.jpeg" class="flying-car" alt="jass in Car">
+</section>
+
+</body>
+</html>
