@@ -168,7 +168,7 @@ body{
   transform:translateY(-6px);
 }
 
-/* Disable scroll when open */
+/* Disable scroll */
 body.no-scroll{
   overflow:hidden;
 }
@@ -200,7 +200,6 @@ body.no-scroll{
   );
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  background-clip:text;
   color:transparent;
   display:block;
 }
@@ -252,47 +251,48 @@ body.no-scroll{
 /* ================= CTA ================= */
 
 .cta-section{
+  position:relative;
   background:#b94a46;
   color:#f5f1ea;
-  text-align:center;
   padding:140px 20px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .cta-content{
-  max-width:900px;
-  margin:auto;
+  max-width:800px;
+  text-align:center;
+  z-index:2;
 }
 
-.cta-content h1{
-  font-family:'Baloo 2',cursive;
-  font-size:70px;
-  margin-bottom:30px;
+/* PHONE IMAGE */
+
+.cta-phone{
+  position:absolute;
+  left:-250px;
+  bottom:0;
+  width:320px;
+  opacity:0;
+  transform:translateX(-100px) rotate(-8deg) scale(0.9);
+  transition:all 1.1s cubic-bezier(.77,0,.18,1);
 }
 
-.cta-btn{
-  display:inline-block;
-  padding:16px 40px;
-  background:#0f1a22;
-  color:white;
-  border-radius:40px;
-  text-decoration:none;
-  margin-top:40px;
-  transition:0.3s;
-}
-
-.cta-btn:hover{
-  transform:translateY(-4px);
+.cta-phone.show{
+  left:0;
+  opacity:1;
+  transform:translateX(0) rotate(0deg) scale(1);
 }
 
 /* Responsive */
 
 @media(max-width:768px){
-
 .hero h1{font-size:48px;}
 .drawer-menu li a{font-size:40px;}
 .drawer{max-width:100%;}
 .cta-content h1{font-size:42px;}
-
+.cta-phone{width:200px; left:-150px;}
 }
 </style>
 </head>
@@ -337,24 +337,26 @@ body.no-scroll{
   <div class="second-inner">
     <h1 class="heading">Hi, I’m Sachin — a video editor and designer</h1><br>
     <span class="scroll-reveal-dark" id="revealText2">
-     Creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results. I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools, I combine creativity with strategy to produce high-quality content.
+      Creating impactful visual content for brands that drives real business results.
     </span>
   </div>
 </section>
 
-<section class="cta-section">
+<section class="cta-section" id="ctaSection">
+
+  <img src="phone.png" alt="Phone" class="cta-phone" id="ctaPhone">
+
   <div class="cta-content">
-    <h1>CALL ME, BUDDY</h1>
-    <p>I'm looking for a challenging new position that will help
-      me squeeze out the best of my creative juices!
-      If you like to sound of a web designer, developer and graphic designer
-      rolled into one whacky human , then I'm your man.
-      Don't hesitate to contact me - I'm eager to hear from you!</p>
+    <h1>CALL ME, BABY</h1>
     <a href="#" class="cta-btn">GO TO MY CALENDAR</a>
   </div>
+
 </section>
 
 <script>
+
+/* ================= DRAWER ================= */
+
 const menuToggle = document.getElementById("menuToggle");
 const drawer = document.getElementById("drawer");
 const overlay = document.getElementById("overlay");
@@ -373,7 +375,7 @@ overlay.addEventListener("click", () => {
   document.body.classList.remove("no-scroll");
 });
 
-/* Scroll Reveal */
+/* ================= SCROLL REVEAL ================= */
 
 const text = document.getElementById("revealText");
 const hero = document.getElementById("hero");
@@ -396,6 +398,24 @@ window.addEventListener("scroll", () => {
   text2.style.setProperty("--reveal2", progress2 * 100 + "%");
 
 });
+
+/* ================= PHONE ANIMATION ================= */
+
+const ctaSection = document.getElementById("ctaSection");
+const ctaPhone = document.getElementById("ctaPhone");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      ctaPhone.classList.add("show");
+    }
+  });
+},{
+  threshold:0.4
+});
+
+observer.observe(ctaSection);
+
 </script>
 
 </body>
