@@ -116,6 +116,162 @@ body{
   color: transparent;
   display: block;
 }
+/* IMPORT FUN FONT (OPTIONAL) */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cta-section {
+  position: relative;
+  background: #b94a46;
+  color: #f5f1ea;
+  text-align: center;
+  padding: 140px 20px;
+  overflow: hidden;
+}
+
+/* WAVY TOP */
+.cta-section::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #efe7d8;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+/* WAVY BOTTOM */
+.cta-section::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #efe7d8;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.cta-content {
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-content h1 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 70px;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  animation: fadeUp 1s ease forwards;
+}
+
+.cta-content h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  line-height: 1.4;
+  animation: fadeUp 1.3s ease forwards;
+}
+
+.cta-content p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  animation: fadeUp 1.6s ease forwards;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  background: #0f1a22;
+  color: #fff;
+  border-radius: 40px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  animation: fadeUp 1.9s ease forwards;
+}
+
+.cta-btn:hover {
+  transform: translateY(-4px);
+  background: #000;
+}
+
+/* HAMBURGER CIRCLE */
+.menu-circle {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background: #0f1a22;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 3;
+}
+
+.menu-circle span {
+  width: 28px;
+  height: 2px;
+  background: white;
+  margin: 6px 0;
+}
+
+.menu-circle:hover {
+  transform: rotate(90deg);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .cta-content h1 {
+    font-size: 42px;
+  }
+
+  .cta-content h3 {
+    font-size: 20px;
+  }
+
+  .cta-content p {
+    font-size: 16px;
+  }
+
+  .menu-circle {
+    width: 60px;
+    height: 60px;
+    top: 20px;
+    right: 20px;
+  }
+}
 </style>
 </head>
 <body>
@@ -140,6 +296,31 @@ body{
       Creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results. I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools, I combine creativity with strategy to produce high-quality content.
     </span>
   </div>
+</section>
+<section class="cta-section">
+  
+  <div class="menu-circle">
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="cta-content">
+    <h1>CALL ME, BABY</h1>
+
+    <h3>
+      I'm looking for a challenging new position that will help  
+      me squeeze out the best of my creative juices!
+    </h3>
+
+    <p>
+      If you like the sound of a web designer, developer and graphic designer  
+      rolled into one whacky human, then I'm your man.  
+      Don't hesitate to contact me - I'm eager to hear from you!
+    </p>
+
+    <a href="#" class="cta-btn">GO TO MY CALENDAR</a>
+  </div>
+
 </section>
 
 <script>
