@@ -3,17 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hero Section</title>
+<title>Scroll Text Reveal</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
 }
 
 body{
@@ -40,90 +36,44 @@ body{
   letter-spacing:2px;
 }
 
-.nav-links{
-  display:flex;
-  gap:40px;
-}
-
-.nav-links a{
-  text-decoration:none;
-  color:#222;
-  font-size:18px;
-}
-
 /* ================= HERO ================= */
 .hero{
-  height:100vh;
+  height:150vh; /* more scroll space */
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   position:relative;
-  overflow:hidden;
-  transition:opacity 0.6s ease, transform 0.6s ease;
-}
-
-.hero.fade-out{
-  opacity:0;
-  transform:translateY(-100px);
+  padding-top:100px;
 }
 
 .hero h1{
   font-size:90px;
   font-weight:900;
   line-height:1.1;
-  z-index:2;
 }
 
-.hero h1 .animate-text{
-  color:#999;
-  opacity:0;
-  transform:translateY(40px);
-  animation:textReveal 1.2s ease forwards;
-}
-
-.hero h1 span:last-child{
-  color:#c24a46;
+/* SCROLL REVEAL EFFECT */
+.scroll-reveal{
+  background: linear-gradient(
+    to right,
+    #111 0%,
+    #111 var(--reveal, 0%),
+    #999 var(--reveal, 0%),
+    #999 100%
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  color:transparent;
   display:block;
 }
 
-@keyframes textReveal{
-  to{
-    color:#111;
-    opacity:1;
-    transform:translateY(0);
-  }
+.red{
+  color:#c24a46;
 }
 
-/* ================= CAR ANIMATION ================= */
-.flying-car{
-  position:absolute;
-  width:500px;
-  top:50%;
-  transform:translateY(-50%);
-  animation:carFly 8s ease-in-out forwards;
-  z-index:1;
-}
-
-@keyframes carFly {
-  0%{
-    left:-600px;
-  }
-  40%{
-    left:50%;
-    transform:translate(-50%, -50%);
-  }
-  60%{
-    left:50%;
-    transform:translate(-50%, -50%);
-  }
-  100%{
-    left:110%;
-    transform:translateY(-50%);
-  }
-}
-
-/* ================= SECOND SECTION ================= */
+/* SECOND SECTION */
 .second-section{
   min-height:100vh;
   background:#1e1e1e;
@@ -131,46 +81,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  padding:100px 20px;
-  position:relative;
-  z-index:2;
-}
-
-.second-section .content{
-  max-width:800px;
-  opacity:0;
-  transform:translateY(100px);
-  transition:1s ease;
-}
-
-.second-section.show .content{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.second-section h2{
-  font-size:60px;
-  margin-bottom:20px;
-}
-
-.second-section p{
-  font-size:20px;
-  line-height:1.6;
-  opacity:0.8;
-}
-
-/* ================= RESPONSIVE ================= */
-@media(max-width:768px){
-  .hero h1{
-    font-size:48px;
-  }
-  .flying-car{
-    width:250px;
-  }
-  .second-section h2{
-    font-size:36px;
-  }
+  font-size:40px;
 }
 </style>
 </head>
@@ -178,52 +89,37 @@ body{
 
 <nav class="navbar">
   <div class="logo">SACHIN KUMAR</div>
-  <div class="nav-links">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Work</a>
-    <a href="#">Contact</a>
-  </div>
 </nav>
 
-<!-- HERO SECTION -->
 <section class="hero" id="hero">
   <h1>
-    <span class="animate-text">DESIGN WITH A</span>
-    <span>HUMAN TOUCH</span>
+    <span class="scroll-reveal" id="revealText">
+      DESIGN WITH A
+    </span>
+    <span class="red">HUMAN TOUCH</span>
   </h1>
-
-  <img src="./Assets-jk/me-in-car.png" class="flying-car" alt="Flying Car">
 </section>
 
-<!-- SECOND SECTION -->
-<section class="second-section" id="second">
-  <div class="content">
-    <h2>Hi, I’m Sachin — a video editor and designer</h2>
-    <p>
-      Creating impactful visual content for brands. My work is client-focused and driven by marketing goals, ensuring design delivers real business results.
-      <br><br>
-      I specialize in talking head videos, brand films, podcasts, vlogs, ads, and motion graphics. Using Premiere Pro, DaVinci Resolve, Photoshop, Figma, Illustrator, and AI tools, I combine creativity with strategy to produce high-quality content.
-    </p>
-  </div>
+<section class="second-section">
+  Scroll Completed
 </section>
 
 <script>
+const text = document.getElementById("revealText");
 const hero = document.getElementById("hero");
-const second = document.getElementById("second");
 
 window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
 
-  if(scrollY > window.innerHeight * 0.3){
-    hero.classList.add("fade-out");
-  } else {
-    hero.classList.remove("fade-out");
-  }
+  const rect = hero.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
 
-  if(scrollY > window.innerHeight * 0.6){
-    second.classList.add("show");
-  }
+  const progress = Math.min(
+    Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0),
+    1
+  );
+
+  text.style.setProperty("--reveal", progress * 100 + "%");
+
 });
 </script>
 
