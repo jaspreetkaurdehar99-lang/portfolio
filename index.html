@@ -39,7 +39,7 @@ body{
   letter-spacing:2px;
 }
 
-/* ================= HERO WRAPPER ================= */
+/* ================= HERO ================= */
 
 .hero-wrapper{
   height:200vh;
@@ -62,9 +62,10 @@ body{
   font-weight:900;
   line-height:1.1;
   z-index:2;
+  position:relative;
 }
 
-/* Scroll Reveal Light */
+/* Scroll Reveal */
 
 .scroll-reveal{
   background: linear-gradient(
@@ -92,9 +93,10 @@ body{
   left:50%;
   width:420px;
   transform:translate(-250%, -50%);
-  z-index:1;
   pointer-events:none;
   will-change:transform;
+  z-index:1; /* Default behind text */
+  transition: z-index 0s linear;
 }
 
 /* ================= SECOND SECTION ================= */
@@ -189,7 +191,7 @@ body{
   <div class="logo">SACHIN KUMAR</div>
 </nav>
 
-<!-- ================= HERO ================= -->
+<!-- HERO -->
 
 <section class="hero-wrapper">
 
@@ -207,7 +209,7 @@ body{
 
 </section>
 
-<!-- ================= SECOND SECTION ================= -->
+<!-- SECOND SECTION -->
 
 <section class="second-section" id="secondSection">
   <div class="second-inner">
@@ -218,7 +220,7 @@ body{
   </div>
 </section>
 
-<!-- ================= CTA ================= -->
+<!-- CTA -->
 
 <section class="cta-section" id="ctaSection">
   <img src="./Assets-jk/phone.png" alt="Phone" class="cta-phone" id="ctaPhone">
@@ -234,11 +236,13 @@ body{
 
 <script>
 
-/* ================= HERO SCROLL (REVERSIBLE) ================= */
+/* ================= HERO SCROLL ================= */
 
 const scrollCar = document.getElementById("scrollCar");
 const heroWrapper = document.querySelector(".hero-wrapper");
 const text = document.getElementById("revealText");
+
+let lastScroll = window.scrollY;
 
 window.addEventListener("scroll", () => {
 
@@ -248,10 +252,20 @@ window.addEventListener("scroll", () => {
   const scrollPosition = window.scrollY - wrapperTop;
   const progress = Math.min(Math.max(scrollPosition / wrapperHeight, 0), 1);
 
+  /* Detect Scroll Direction */
+  if(window.scrollY < lastScroll){
+    // Scrolling UP → car above text
+    scrollCar.style.zIndex = "3";
+  } else {
+    // Scrolling DOWN → car behind text
+    scrollCar.style.zIndex = "1";
+  }
+  lastScroll = window.scrollY;
+
   /* TEXT REVEAL */
   text.style.setProperty("--reveal", progress * 100 + "%");
 
-  /* CAR MOVEMENT (reversible) */
+  /* CAR MOVEMENT */
   let x = -250;
   let rotation = 0;
 
