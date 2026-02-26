@@ -39,16 +39,24 @@ body{
   letter-spacing:2px;
 }
 
-/* ================= HERO ================= */
+/* ================= HERO WRAPPER ================= */
 
-.hero{
+/* Controls scroll timeline */
+.hero-wrapper{
+  height:200vh; 
   position:relative;
-  height:150vh; /* controls car timeline */
+}
+
+/* Visible hero */
+.hero{
+  position:sticky;
+  top:0;
+  height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding-top:100px;
+  overflow:hidden;
 }
 
 .hero h1{
@@ -58,7 +66,7 @@ body{
   z-index:2;
 }
 
-/* Scroll Reveal Light */
+/* Scroll reveal light */
 .scroll-reveal{
   background: linear-gradient(
     to right,
@@ -115,7 +123,7 @@ body{
   margin-bottom:40px;
 }
 
-/* Scroll Reveal Dark */
+/* Scroll reveal dark */
 .scroll-reveal-dark{
   font-size:2rem;
   line-height:1.4;
@@ -132,7 +140,7 @@ body{
   display:block;
 }
 
-/* ================= CTA SECTION ================= */
+/* ================= CTA ================= */
 
 .cta-section{
   position:relative;
@@ -184,13 +192,20 @@ body{
 
 <!-- ================= HERO ================= -->
 
-<section class="hero" id="hero">
-  <h1>
-    <span class="scroll-reveal" id="revealText">DESIGN WITH A</span>
-    <span class="red">HUMAN TOUCH</span>
-  </h1>
+<section class="hero-wrapper">
 
-  <img src="./Assets-jk/me-in-car.png" alt="Car" class="scroll-car" id="scrollCar">
+  <section class="hero" id="hero">
+    <h1>
+      <span class="scroll-reveal" id="revealText">DESIGN WITH A</span>
+      <span class="red">HUMAN TOUCH</span>
+    </h1>
+
+    <img src="./Assets-jk/me-in-car.png" 
+         alt="Car" 
+         class="scroll-car" 
+         id="scrollCar">
+  </section>
+
 </section>
 
 <!-- ================= SECOND SECTION ================= -->
@@ -220,52 +235,42 @@ body{
 
 <script>
 
-/* ================= HERO TEXT REVEAL ================= */
-
-const text = document.getElementById("revealText");
-const hero = document.getElementById("hero");
-
-window.addEventListener("scroll", () => {
-
-  const heroHeight = hero.offsetHeight;
-  const scrollTop = window.scrollY;
-
-  const progress = Math.min(scrollTop / heroHeight, 1);
-  text.style.setProperty("--reveal", progress * 100 + "%");
-
-});
-
-/* ================= HERO CAR SCROLL ANIMATION ================= */
+/* ================= HERO TEXT + CAR ================= */
 
 const scrollCar = document.getElementById("scrollCar");
+const heroWrapper = document.querySelector(".hero-wrapper");
+const text = document.getElementById("revealText");
 
 window.addEventListener("scroll", () => {
 
-  const heroHeight = hero.offsetHeight;
+  const wrapperHeight = heroWrapper.offsetHeight;
   const scrollTop = window.scrollY;
+  const progress = Math.min(scrollTop / wrapperHeight, 1);
 
-  const progress = Math.min(scrollTop / heroHeight, 1);
+  /* TEXT REVEAL */
+  text.style.setProperty("--reveal", progress * 100 + "%");
 
+  /* CAR TIMELINE */
   if(progress <= 0.4){
-    const enterProgress = progress / 0.4;
-    const x = -250 + (enterProgress * 250);
+    const enter = progress / 0.4;
+    const x = -250 + (enter * 250);
     scrollCar.style.transform =
-      `translate(${x}%, -50%) rotate(${enterProgress * 8}deg)`;
+      `translate(${x}%, -50%) rotate(${enter * 8}deg)`;
   }
   else if(progress <= 0.65){
     scrollCar.style.transform =
       `translate(0%, -50%) rotate(0deg)`;
   }
   else{
-    const exitProgress = (progress - 0.65) / 0.35;
-    const x = exitProgress * 250;
+    const exit = (progress - 0.65) / 0.35;
+    const x = exit * 250;
     scrollCar.style.transform =
-      `translate(${x}%, -50%) rotate(${exitProgress * 12}deg)`;
+      `translate(${x}%, -50%) rotate(${exit * 12}deg)`;
   }
 
 });
 
-/* ================= SECOND SECTION TEXT REVEAL ================= */
+/* ================= SECOND SECTION REVEAL ================= */
 
 const text2 = document.getElementById("revealText2");
 const secondSection = document.getElementById("secondSection");
