@@ -144,17 +144,29 @@ body{
 
 .cta-section{
   position:relative;
-  background-image: url("./Assets-jk/wall-pap.jpeg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color:#f5f1ea;
-  padding:140px 20px;
+  min-height:100vh; /* IMPORTANT */
+  background-image:url("./Assets-jk/wall-pap.jpeg");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:140px 20px;
+  overflow: visible;
+}
+.cta-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.5);
 }
 
+.cta-content{
+  position:relative;
+  z-index:2;
+  color:#f5f1ea;
+}
 .cta-content{
   max-width:800px;
   text-align:center;
