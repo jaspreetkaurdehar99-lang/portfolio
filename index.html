@@ -41,13 +41,11 @@ body{
 
 /* ================= HERO WRAPPER ================= */
 
-/* Controls scroll timeline */
 .hero-wrapper{
-  height:200vh; 
+  height:200vh;
   position:relative;
 }
 
-/* Visible hero */
 .hero{
   position:sticky;
   top:0;
@@ -66,7 +64,8 @@ body{
   z-index:2;
 }
 
-/* Scroll reveal light */
+/* Scroll Reveal Light */
+
 .scroll-reveal{
   background: linear-gradient(
     to right,
@@ -123,7 +122,6 @@ body{
   margin-bottom:40px;
 }
 
-/* Scroll reveal dark */
 .scroll-reveal-dark{
   font-size:2rem;
   line-height:1.4;
@@ -176,6 +174,7 @@ body{
 }
 
 /* Responsive */
+
 @media(max-width:768px){
 .hero h1{font-size:48px;}
 .scroll-car{width:240px;}
@@ -200,9 +199,9 @@ body{
       <span class="red">HUMAN TOUCH</span>
     </h1>
 
-    <img src="./Assets-jk/me-in-car.png" 
-         alt="Car" 
-         class="scroll-car" 
+    <img src="./Assets-jk/me-in-car.png"
+         alt="Car"
+         class="scroll-car"
          id="scrollCar">
   </section>
 
@@ -219,7 +218,7 @@ body{
   </div>
 </section>
 
-<!-- ================= CTA SECTION ================= -->
+<!-- ================= CTA ================= -->
 
 <section class="cta-section" id="ctaSection">
   <img src="./Assets-jk/phone.png" alt="Phone" class="cta-phone" id="ctaPhone">
@@ -235,7 +234,7 @@ body{
 
 <script>
 
-/* ================= HERO TEXT + CAR ================= */
+/* ================= HERO SCROLL (REVERSIBLE) ================= */
 
 const scrollCar = document.getElementById("scrollCar");
 const heroWrapper = document.querySelector(".hero-wrapper");
@@ -243,34 +242,40 @@ const text = document.getElementById("revealText");
 
 window.addEventListener("scroll", () => {
 
+  const wrapperTop = heroWrapper.offsetTop;
   const wrapperHeight = heroWrapper.offsetHeight;
-  const scrollTop = window.scrollY;
-  const progress = Math.min(scrollTop / wrapperHeight, 1);
+
+  const scrollPosition = window.scrollY - wrapperTop;
+  const progress = Math.min(Math.max(scrollPosition / wrapperHeight, 0), 1);
 
   /* TEXT REVEAL */
   text.style.setProperty("--reveal", progress * 100 + "%");
 
-  /* CAR TIMELINE */
+  /* CAR MOVEMENT (reversible) */
+  let x = -250;
+  let rotation = 0;
+
   if(progress <= 0.4){
     const enter = progress / 0.4;
-    const x = -250 + (enter * 250);
-    scrollCar.style.transform =
-      `translate(${x}%, -50%) rotate(${enter * 8}deg)`;
+    x = -250 + (enter * 250);
+    rotation = enter * 8;
   }
   else if(progress <= 0.65){
-    scrollCar.style.transform =
-      `translate(0%, -50%) rotate(0deg)`;
+    x = 0;
+    rotation = 0;
   }
   else{
     const exit = (progress - 0.65) / 0.35;
-    const x = exit * 250;
-    scrollCar.style.transform =
-      `translate(${x}%, -50%) rotate(${exit * 12}deg)`;
+    x = exit * 250;
+    rotation = exit * 12;
   }
+
+  scrollCar.style.transform =
+    `translate(${x}%, -50%) rotate(${rotation}deg)`;
 
 });
 
-/* ================= SECOND SECTION REVEAL ================= */
+/* ================= SECOND SECTION TEXT REVEAL ================= */
 
 const text2 = document.getElementById("revealText2");
 const secondSection = document.getElementById("secondSection");
